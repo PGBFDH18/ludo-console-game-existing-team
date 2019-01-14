@@ -91,7 +91,7 @@ namespace GameEngine
 
             do
             {
-                Console.WriteLine($"Do you want to: \n 1. Move two pieces from fence to board space 1 \n" +
+                Console.WriteLine($"Do you want to: \n 1. Move two pieces from fence to board space 1 \n " +
                 $"2. Move one piece from fence to board space 6 \n 3. Move one piece 6 spaces");
 
                 int pick = int.Parse(Console.ReadLine());
@@ -285,6 +285,7 @@ namespace GameEngine
  
                 }
 
+                Console.ReadKey();
                 Console.Clear();
 
                 if(PlayersByTurnOrder[i].score == 4)

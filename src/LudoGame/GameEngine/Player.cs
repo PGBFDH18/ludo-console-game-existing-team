@@ -33,10 +33,19 @@ namespace GameEngine
         public void ChosePieceMove(int spaces)
         {
 
-            List<Piece> checkFence = Pieces.Values.Where<Piece>(x => x.OnBoard == true).ToList<Piece>();
+            bool hasMovable = false;
 
 
-            if (checkFence.Count != 0)
+            foreach(Piece p in Pieces.Values)
+            {
+                if(p.OnBoard == true)
+                {
+                    hasMovable = true;
+                }
+            }
+
+
+            if (hasMovable)
             {
 
                 Console.WriteLine($"Please chose the piece you would like to move {spaces} spaces");
@@ -44,7 +53,7 @@ namespace GameEngine
                 for (int i = 1; i < Pieces.Count + 1; i++)
                 {
                     if (Pieces[i].OnBoard && !Pieces[i].inGoal)
-                        Console.WriteLine($"{i}. {Pieces[i]}");
+                        Console.WriteLine($"{i}. Spaces from goal: {Pieces[i].spacesFromGoal}, Position on map: {Pieces[i].relativePosition}");
                 }
 
                 int Choice = int.Parse(Console.ReadLine().ToString());
@@ -67,7 +76,7 @@ namespace GameEngine
             
 
            
-                for (int i = 1; i < Pieces.Count + 1; i++)
+                for (int i = 1; i < Pieces.Count+1; i++)
                 {
                     if (!Pieces[i].OnBoard)
                     {
@@ -77,6 +86,7 @@ namespace GameEngine
                 }
 
             int choice = int.Parse(Console.ReadLine().ToString());
+            Pieces[choice].OnBoard = true;
             Pieces[choice].movePiece(spaces);
 
 
