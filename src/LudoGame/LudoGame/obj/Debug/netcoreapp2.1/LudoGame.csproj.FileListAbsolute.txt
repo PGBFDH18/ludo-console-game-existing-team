@@ -1,0 +1,14 @@
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\LudoGame.deps.json
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\LudoGame.runtimeconfig.json
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\LudoGame.runtimeconfig.dev.json
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\LudoGame.dll
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\LudoGame.pdb
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\GameEngine.dll
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\bin\Debug\netcoreapp2.1\GameEngine.pdb
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.csprojAssemblyReference.cache
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.csproj.CoreCompileInputs.cache
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.AssemblyInfoInputs.cache
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.AssemblyInfo.cs
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.csproj.CopyComplete
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.dll
+C:\Users\Oskar\Documents\GitHub\ludo-console-game-existing-team\src\LudoGame\LudoGame\obj\Debug\netcoreapp2.1\LudoGame.pdb
