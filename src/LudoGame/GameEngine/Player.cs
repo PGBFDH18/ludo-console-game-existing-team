@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace GameEngine
 {
@@ -9,7 +9,7 @@ namespace GameEngine
         public string name { get; set; }
         public string color { get; set; }
         public int turnOrder { get; set; }
-
+        public bool turnDone { get; set; }
         public int score { get; set; }
         Dictionary<int, Piece> Pieces;
 
@@ -17,6 +17,7 @@ namespace GameEngine
 
         public Player(string name, string color, int turnOrder)
         {
+            
             this.name = name;
             this.color = color;
             this.turnOrder = turnOrder;
@@ -31,19 +32,57 @@ namespace GameEngine
 
         public void ChosePieceMove(int spaces)
         {
-            Console.WriteLine($"Please chose the piece you would like to move {spaces} spaces");
 
-            for(int i = 1; i < Pieces.Count + 1; i++)
+            List<Piece> checkFence = Pieces.Values.Where<Piece>(x => x.OnBoard == true).ToList<Piece>();
+
+
+            if (checkFence.Count != 0)
             {
-                if(Pieces[i].OnBoard && !Pieces[i].inGoal)
-                Console.WriteLine($"{i}. {Pieces[i]}");
+
+                Console.WriteLine($"Please chose the piece you would like to move {spaces} spaces");
+
+                for (int i = 1; i < Pieces.Count + 1; i++)
+                {
+                    if (Pieces[i].OnBoard && !Pieces[i].inGoal)
+                        Console.WriteLine($"{i}. {Pieces[i]}");
+                }
+
+                int Choice = int.Parse(Console.ReadLine().ToString());
+
+                Pieces[Choice].movePiece(spaces);
+
+                if (Pieces[Choice].inGoal == true)
+                {
+                    score++;
+                }
             }
+            else
+            {
+                Console.WriteLine($"No pieces currently on the board...");
+            }
+        }
 
-            int Choice = int.Parse(Console.ReadLine().ToString());
+        public void ChosePieceFromFence(int spaces)
+        {
+            
 
-           Pieces[Choice].movePiece(spaces);
+           
+                for (int i = 1; i < Pieces.Count + 1; i++)
+                {
+                    if (!Pieces[i].OnBoard)
+                    {
+                        Console.WriteLine($"{i}. Spaces from Goal: {Pieces[i].spacesFromGoal}, Position on map: {Pieces[i].relativePosition}");
+                    }
+                    
+                }
+
+            int choice = int.Parse(Console.ReadLine().ToString());
+            Pieces[choice].movePiece(spaces);
+
 
         }
+
+        
 
        
 

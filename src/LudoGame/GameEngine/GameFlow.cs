@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace GameEngine
 {
+
+    //CRITCAL BUG:::::: Loop does not display die rolls
+    //Bug when coloring console.foreground
+
     public class GameFlow
     {
-
+        
         List<Player> Players = new List<Player>();
 
         int playerCount = 0;
@@ -36,6 +41,122 @@ namespace GameEngine
 
             return option;
 
+        }
+
+        private int dieRoll()
+        {
+           
+             Random rand = new Random();
+
+             int dieRoll = rand.Next(1, 7);
+
+             if (dieRoll == 6)
+             {
+                 dieRoll += rand.Next(1, 7);
+             }
+
+            return dieRoll;
+            
+        }
+
+        private void rolled1(Player currentPlayer)
+        {
+            bool validoption = false;
+            do
+            {
+                Console.WriteLine("Do you want to: \n 1.Move piece from fence to board space 1 \n 2." +
+                                  "Move piece 1 space");
+
+                int pick = int.Parse(Console.ReadLine().ToString());
+
+                if (pick == 1)
+                {
+                    currentPlayer.ChosePieceFromFence(1);
+                    validoption = true;
+                }
+                else if (pick == 2)
+                {
+                    currentPlayer.ChosePieceMove(1);
+                    validoption = true;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: You have to pick a valid option");
+                }
+            } while (!validoption);
+        }
+        private void rolled6(Player currentPlayer)
+        {
+            bool validOption = false;
+
+            do
+            {
+                Console.WriteLine($"Do you want to: \n 1. Move two pieces from fence to board space 1 \n" +
+                $"2. Move one piece from fence to board space 6 \n 3. Move one piece 6 spaces");
+
+                int pick = int.Parse(Console.ReadLine());
+
+
+
+                if (pick == 1)
+                {
+                    currentPlayer.ChosePieceFromFence(1);
+                    currentPlayer.ChosePieceFromFence(1);
+
+                    validOption = true;
+                }
+                else if (pick == 2)
+                {
+                    currentPlayer.ChosePieceFromFence(6);
+                    validOption = true;
+                }
+                else if (pick == 3)
+                {
+                    currentPlayer.ChosePieceMove(6);
+                    validOption = true;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: INVALID INPUT");
+                }
+            } while (!validOption);
+        }
+        private void rolledAbove6(Player currentPlayer)
+        {
+            Console.WriteLine($"Your rolled a 6 and therefore got the oppertunity to roll again \n" +
+                                    $"Please pick an alternative: \n 1. Move two pieces from fence to board space 1 \n" +
+                                $"2. Move one piece from fence to board space 6 \n 3. Move one piece 6 spaces");
+
+            int pick = int.Parse(Console.ReadLine().ToString());
+
+            bool validOption = false;
+            do
+
+            {
+
+
+                if (pick == 1)
+                {
+                    currentPlayer.ChosePieceFromFence(1);
+                    currentPlayer.ChosePieceFromFence(1);
+
+                    validOption = true;
+                }
+                else if (pick == 2)
+                {
+                    currentPlayer.ChosePieceFromFence(6);
+                    validOption = true;
+                }
+                else if (pick == 3)
+                {
+                    currentPlayer.ChosePieceMove(6);
+                    validOption = true;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: INVALID INPUT");
+                }
+            } while (!validOption);
         }
 
         private int Init()
@@ -96,111 +217,53 @@ namespace GameEngine
         {
             Init();
 
-            gameRound();
+            int round = 1;
 
-            while(running)
+            while (running)
             {
-
+                gameRound(round);
+                round++;
             }
+
+            Console.WriteLine($"Shutting down...");
 
         }
 
-        private void gameRound()
+        private void gameRound(int round)
         {
-            int round = 1;
+            
             Console.WriteLine($"ROUND: {round}");
 
-
-            var PlayersByTurnOrder = Players.OrderBy(Player => Player.turnOrder).ToList();
-
-            for(int i = 1; i < PlayersByTurnOrder.Count + 1; i++)
+            Player[] PlayersByTurnOrder = Players.OrderBy(x => x.turnOrder).ToArray<Player>();
+            
+           
+            for(int i = 0; i < PlayersByTurnOrder.Length; i++)
             {
-                Console.WriteLine($"{PlayersByTurnOrder[i - 1]}'s turn! \n Roll DIE...");
+                Console.ForegroundColor = ConsoleColor.White;
+
+
+                Console.WriteLine($"{PlayersByTurnOrder[i].name}'s turn! \n Roll DIE...");
                 Console.ReadKey();
 
-                int dieResult = 0; //WHERE DIE RESULT GO AKA     DIE.ROLL()
+                
+                Player currentPlayer = PlayersByTurnOrder[i];
+                
+                int dieResult = dieRoll();
 
                 
-
-
+                Console.WriteLine($"Your rolled {dieResult}");
                 
-
-
-
-                
-
                 switch(dieResult)
                 {
                     case 1:
                         {
-                            //METHOD TO ALLOW PIECE FROM FENCE TO BOARD
-
-                            bool validoption = false;
-                            do
-                            {
-                                Console.WriteLine("Do you want to: \n 1.Move piece from fence to board space 1 \n 2." +
-                                                  "Move piece 1 space");
-
-                                int pick = int.Parse(Console.ReadLine().ToString());
-
-                                if (pick == 1)
-                                {
-                                    //MOVE PIECE FROM BOARD TO SPACE
-                                    validoption = true;
-                                }
-                                else if (pick == 2)
-                                {
-                                    //MOVE PIECE ONE SPACE ON BOARD
-                                    validoption = true;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("ERROR: You have to pick a valid option");
-                                }
-                            } while (!validoption);
-
+                            rolled1(currentPlayer);
                             break;
                         }
 
                     case 6:
                         {
-                            
-
-                            bool validOption = false;
-
-                            do
-                            {
-                                Console.WriteLine($"Do you want to: \n 1. Move two pieces from fence to board space 1 \n" +
-                                $"2. Move one piece from fence to board space 6 \n 3. Move one piece 6 spaces");
-
-                                int pick = int.Parse(Console.ReadLine());
-
-
-
-                                if (pick == 1)
-                                {
-                                    //FLYTTA 2 PIECE FROM FENCE TO SPACE 1
-                                    validOption = true;
-                                }
-                                else if (pick == 2)
-                                {
-                                    //FLYTTA PIECE FROM FENCE TO BOARD SPACE &
-                                    validOption = true;
-                                }
-                                else if (pick == 3)
-                                {
-                                    //FLYTTA PIECE 6 SPACES
-                                    validOption = true;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("ERROR: INVALID INPUT");
-                                }
-                            } while (!validOption);
-
-
-
-                            
+                            rolled6(currentPlayer);
                             break;
                         }
 
@@ -209,27 +272,31 @@ namespace GameEngine
 
                             if (dieResult > 6)
                             {
-                                //ROLL DIE AGAIN AND ADD THE NUMBER
-                                //CHOSE AND MOVE PIECE
+                                rolledAbove6(currentPlayer);
                             }
                             else
                             {
                                 Console.WriteLine($"Chose which piece you would like to move {dieResult} spaces");
+                                currentPlayer.ChosePieceMove(dieResult);
                             }
-                            //VÄLJ EN PIECE SOM FLYTTAS
+                            
                             break;
                         }
  
                 }
-                
-                if(PlayersByTurnOrder[i-1].score == 4)
+
+                Console.Clear();
+
+                if(PlayersByTurnOrder[i].score == 4)
                 {
-                    Console.WriteLine($"Congratulations, {PlayersByTurnOrder[i-1]} is the winner!");
+                    Console.WriteLine($"Congratulations, {PlayersByTurnOrder[i]} is the winner!");
+                    running = false;
                 }
+
 
             }
 
-            round++;  
+            
         }
 
     }

@@ -49,7 +49,7 @@ namespace GameEngine
 
         public void movePiece(int spaces)
         {
-            if(relativePosition + spaces < 52)
+            if(relativePosition + spaces > 52)
             {
                relativePosition += spaces - 52;
             }
